@@ -2,15 +2,15 @@
     <string name="app_name">UptoNews</string>
     <string name="join_upto">Join UptoNews</string>
     <string name="welcome_upto">Welcome back to UptoNews</string>
-    <string name="signup"> Sign up</string>
+    <string name="signup">Sign up</string>
     <string name="signup_google">Sign up with Google</string>
     <string name="signup_facebook">Sign up with Facebook</string>
     <string name="signup_email">Sign up with E-mail</string>
-    <string name="signin"> Sign in</string>
+    <string name="signin">Sign in</string>
     <string name="signin_google">Sign in with Google</string>
     <string name="signin_facebook">Sign in with Facebook</string>
     <string name="signin_email">Sign in with E-mail</string>
-    <string name="already_have_account">Already have a account? </string>
-    <string name="dont_have_account">Don\'t have a account? </string>
+    <string name="already_have_account">Already have a account?</string>
+    <string name="dont_have_account">Don\'t have a account?</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

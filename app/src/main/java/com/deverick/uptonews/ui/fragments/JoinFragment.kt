@@ -17,15 +17,12 @@ import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 const val REQUEST_CODE_SIGN_IN = 0
 
@@ -70,80 +67,43 @@ class JoinFragment : Fragment() {
             .requestEmail()
             .build()
 
-        val signInClient = GoogleSignIn.getClient(this.requireActivity(), options)
+        val googleSignInClient = GoogleSignIn.getClient(this.requireActivity(), options)
 
-        signInClient.signInIntent.also {
+        googleSignInClient.signInIntent.also {
             startActivityForResult(it, REQUEST_CODE_SIGN_IN)
         }
     }
 
-    private fun googleAuth(account: GoogleSignInAccount) {
-        val credentials = GoogleAuthProvider.getCredential(account.idToken, null)
+    private fun googleAuth(token: String) {
+        val credentials = GoogleAuthProvider.getCredential(token, null)
 
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                auth.signInWithCredential(credentials).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val intent = Intent(
-                            this@JoinFragment.requireActivity(),
-                            MainActivity::class.java
-                        )
+        try {
+            auth.signInWithCredential(credentials).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val intent = Intent(
+                        activity,
+                        MainActivity::class.java
+                    )
 
-                        intent.putExtra("user", auth.currentUser)
+                    intent.putExtra("user", auth.currentUser)
 
-                        startActivity(intent)
+                    startActivity(intent)
 
-                        this@JoinFragment.activity?.finish()
-                    } else {
-                        Snackbar.make(
-                            binding.mainLayout,
-                            "Error while trying to login",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                    }
+                    activity?.finish()
+                } else {
+                    Snackbar.make(
+                        binding.mainLayout,
+                        "Google sign in failed",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                 }
-            } catch (e: Exception) {
-                Snackbar.make(
-                    binding.mainLayout,
-                    "Error while trying to login",
-                    Snackbar.LENGTH_SHORT
-                ).show()
             }
-        }
-    }
-
-    private fun facebookAuth(token: AccessToken) {
-        val credentials = FacebookAuthProvider.getCredential(token.token)
-
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                auth.signInWithCredential(credentials).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val intent = Intent(
-                            this@JoinFragment.requireActivity(),
-                            MainActivity::class.java
-                        )
-
-                        intent.putExtra("user", auth.currentUser)
-
-                        startActivity(intent)
-
-                        this@JoinFragment.activity?.finish()
-                    } else {
-                        Snackbar.make(
-                            binding.mainLayout,
-                            "Error while trying to login",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            } catch (e: Exception) {
-                Snackbar.make(
-                    binding.mainLayout,
-                    "Error while trying to login",
-                    Snackbar.LENGTH_SHORT
-                ).show()
-            }
+        } catch (e: Exception) {
+            Snackbar.make(
+                binding.mainLayout,
+                "Google sign in failed",
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -163,7 +123,7 @@ class JoinFragment : Fragment() {
                 override fun onCancel() {
                     Snackbar.make(
                         binding.mainLayout,
-                        "Login canceled",
+                        "Facebook sign in failed",
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }
@@ -171,40 +131,67 @@ class JoinFragment : Fragment() {
                 override fun onError(exception: FacebookException?) {
                     Snackbar.make(
                         binding.mainLayout,
-                        "Error while trying to login with facebook",
+                        "Facebook sign in failed",
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }
             })
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    private fun facebookAuth(token: AccessToken) {
+        val credentials = FacebookAuthProvider.getCredential(token.token)
 
-        if (requestCode == REQUEST_CODE_SIGN_IN) {
-            GoogleSignIn.getSignedInAccountFromIntent(data).addOnCompleteListener { task ->
-                try {
-                    if (task.isSuccessful) {
-                        task.result?.let { googleAuth(it) }
-                    }
+        try {
+            auth.signInWithCredential(credentials).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val intent = Intent(
+                        activity,
+                        MainActivity::class.java
+                    )
 
-                    if (task.isCanceled) {
-                        Snackbar.make(
-                            binding.mainLayout,
-                            "Login canceled",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                    }
-                } catch (e: Exception) {
+                    intent.putExtra("user", auth.currentUser)
+
+                    startActivity(intent)
+
+                    activity?.finish()
+                } else {
                     Snackbar.make(
                         binding.mainLayout,
-                        "Error while trying to login with google",
+                        "Facebook sign in failed",
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }
             }
+        } catch (e: Exception) {
+            Snackbar.make(
+                binding.mainLayout,
+                "Facebook sign in failed",
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
+    }
 
-        callbackManager.onActivityResult(requestCode, resultCode, data)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_CODE_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+
+            try {
+                val account = task.getResult(ApiException::class.java)
+
+                if (account != null) {
+                    account.idToken?.let { googleAuth(it) }
+                }
+            } catch (e: ApiException) {
+                Snackbar.make(
+                    binding.mainLayout,
+                    "Google sign in failed",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+        } else {
+            callbackManager.onActivityResult(requestCode, resultCode, data)
+        }
     }
 }
