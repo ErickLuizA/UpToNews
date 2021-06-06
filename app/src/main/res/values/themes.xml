@@ -4,7 +4,9 @@
         <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryVariant">@color/lightBlack</item>
         <item name="colorOnPrimary">@color/grey</item>
+        <item name="colorOnPrimarySurface">@color/dark_grey</item>
         <item name="colorSecondary">@color/green</item>
+        <item name="colorOnError">@color/lightRed</item>
         <item name="android:windowBackground">@color/black</item>
         <item name="android:statusBarColor" tools:targetApi="l">@color/lightBlack</item>
     </style>

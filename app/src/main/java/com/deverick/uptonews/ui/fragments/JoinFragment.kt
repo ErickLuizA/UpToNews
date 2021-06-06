@@ -85,8 +85,6 @@ class JoinFragment : Fragment() {
                         MainActivity::class.java
                     )
 
-                    intent.putExtra("user", auth.currentUser)
-
                     startActivity(intent)
 
                     activity?.finish()
@@ -148,8 +146,6 @@ class JoinFragment : Fragment() {
                         activity,
                         MainActivity::class.java
                     )
-
-                    intent.putExtra("user", auth.currentUser)
 
                     startActivity(intent)
 

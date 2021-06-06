@@ -8,7 +8,8 @@
         <entry key="app/src/main/res/layout/activity_auth.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1105072463768116" />
         <entry key="app/src/main/res/layout/fragment_join.xml" value="0.18" />
-        <entry key="app/src/main/res/layout/fragment_welcome.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_welcome.xml" value="0.8360655737704918" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1175925925925926" />
       </map>
     </option>
