@@ -1,33 +1,24 @@
 package com.deverick.uptonews
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
-import com.google.firebase.auth.FirebaseAuth
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.deverick.uptonews.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var auth: FirebaseAuth
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        auth = FirebaseAuth.getInstance()
+        val binding = ActivityMainBinding.inflate(layoutInflater)
 
-        auth.addAuthStateListener { firebaseAuth ->
-            if (firebaseAuth.currentUser == null) {
-                startActivity(Intent(this, AuthActivity::class.java))
+        setContentView(binding.root)
 
-                finish()
-            }
-        }
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(binding.mainFragmentContainerView.id) as NavHostFragment
 
-        findViewById<TextView>(R.id.hello).text = auth.currentUser?.displayName ?: "No"
+        val navController = navHostFragment.navController
 
-        findViewById<Button>(R.id.signout).setOnClickListener {
-            auth.signOut()
-        }
+        binding.bottomNavigationView.setupWithNavController(navController)
     }
 }
