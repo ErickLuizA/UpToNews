@@ -17,7 +17,7 @@
     <string name="hint_email_address">Enter your e-mail</string>
     <string name="hint_password">Enter your password</string>
     <string name="continue_text">Continue</string>
-    <string name="invalid_name">name cannot be empty</string>
-    <string name="invalid_email">invalid e-mail</string>
-    <string name="invalid_password">password too short</string>
+    <string name="invalid_name">Name cannot be empty</string>
+    <string name="invalid_email">Invalid e-mail</string>
+    <string name="invalid_password">Password too short</string>
 </resources>
