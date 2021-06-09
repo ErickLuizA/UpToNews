@@ -23,4 +23,6 @@
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="settings">Settings</string>
+    <string name="news_image_description">News Image</string>
+    <string name="point">·</string>
 </resources>
