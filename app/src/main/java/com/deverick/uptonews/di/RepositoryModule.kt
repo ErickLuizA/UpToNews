@@ -1,7 +1,8 @@
 package com.deverick.uptonews.di
 
-import com.deverick.uptonews.repositories.NewsRepository
-import com.deverick.uptonews.repositories.NewsRepositoryImpl
+import com.deverick.uptonews.data.api.CurrentsApi
+import com.deverick.uptonews.data.repositories.NewsRepository
+import com.deverick.uptonews.data.repositories.NewsRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,7 +15,11 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideNewsRepository(): NewsRepository {
-        return NewsRepositoryImpl()
+    fun provideNewsRepository(
+        currentsApi: CurrentsApi,
+    ): NewsRepository {
+        return NewsRepositoryImpl(
+            currentsApi
+        )
     }
 }

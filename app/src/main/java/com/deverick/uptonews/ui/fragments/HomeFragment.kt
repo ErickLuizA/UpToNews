@@ -14,6 +14,7 @@ import com.deverick.uptonews.utils.Resource
 import com.deverick.uptonews.viewmodels.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -22,6 +23,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var newsAdapter: NewsAdapter
 
+    @InternalCoroutinesApi
     private val viewModel: NewsViewModel by viewModels()
 
     override fun onCreateView(
@@ -34,6 +36,7 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    @InternalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setUpRecyclerView()
 
@@ -44,7 +47,7 @@ class HomeFragment : Fragment() {
                         hideLoading()
 
                         resource.data?.let { response ->
-                            newsAdapter.differ.submitList(response.articles)
+                            newsAdapter.differ.submitList(response)
                         }
                     }
 

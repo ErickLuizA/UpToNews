@@ -17,7 +17,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     private val differCallback = object : DiffUtil.ItemCallback<News>() {
         override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.url == newItem.url
         }
 
         override fun areContentsTheSame(oldItem: News, newItem: News): Boolean {
@@ -42,11 +42,35 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val currentNews = differ.currentList[position]
 
+        val title =
+            if (currentNews.title.length > 40) "${
+                currentNews.title.subSequence(
+                    0,
+                    40
+                )
+            }..." else currentNews.title
+
+        val description =
+            if (currentNews.description.length > 200) "${
+                currentNews.description.subSequence(
+                    0,
+                    200
+                )
+            }..." else currentNews.description
+
+        val author =
+            if (currentNews.author.length > 30) "${
+                currentNews.author.subSequence(
+                    0,
+                    30
+                )
+            }..." else currentNews.author
+
         binding.apply {
-            newsTitle.text = currentNews.title
-            newsDescription.text = currentNews.description
-            newsDate.text = currentNews.date
-            newsReadTime.text = currentNews.readTime
+            newsTitle.text = title
+            newsDescription.text = description
+            newsAuthor.text = author
+            newsDate.text = currentNews.published
             Glide.with(holder.itemView).load(currentNews.image).into(newsImage)
 
             setOnClickListener {
