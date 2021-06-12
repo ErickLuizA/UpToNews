@@ -43,10 +43,10 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
         val currentNews = differ.currentList[position]
 
         val title =
-            if (currentNews.title.length > 40) "${
+            if (currentNews.title.length > 70) "${
                 currentNews.title.subSequence(
                     0,
-                    40
+                    70
                 )
             }..." else currentNews.title
 
@@ -66,11 +66,13 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
                 )
             }..." else currentNews.author
 
+        val date = currentNews.published.subSequence(0, 10)
+
         binding.apply {
             newsTitle.text = title
             newsDescription.text = description
             newsAuthor.text = author
-            newsDate.text = currentNews.published
+            newsDate.text = date
             Glide.with(holder.itemView).load(currentNews.image).into(newsImage)
 
             setOnClickListener {
@@ -79,6 +81,14 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
                 }
             }
         }
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 
     override fun getItemCount(): Int {

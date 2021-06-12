@@ -7,6 +7,6 @@ import retrofit2.Response
 interface NewsRepository {
     suspend fun getRecommendedNews(
         language: String,
-        category: String
+        categories: List<String>
     ): Flow<Response<CurrentsApiResponse>>
 }

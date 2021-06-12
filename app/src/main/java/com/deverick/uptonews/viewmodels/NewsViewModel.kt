@@ -28,16 +28,20 @@ class NewsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getRecommended("en", "general")
+            getRecommended("en", listOf("general"))
         }
     }
 
     @InternalCoroutinesApi
-    suspend fun getRecommended(language: String, category: String) {
-        newsRepository.getRecommendedNews(language, category).collect { response ->
-            val result = handleGetRecommended(response)
+    suspend fun getRecommended(language: String, category: List<String>) {
+        try {
+            newsRepository.getRecommendedNews(language, category).collect { response ->
+                val result = handleGetRecommended(response)
 
-            _news.value = result
+                _news.value = result
+            }
+        } catch (e: Exception) {
+            _news.value = Resource.Error("A unexpected error happened")
         }
     }
 
@@ -45,7 +49,7 @@ class NewsViewModel @Inject constructor(
         if (response.isSuccessful) {
             response.body()?.let { res ->
                 if (res.status == "error") {
-                    return Resource.Error("Api error")
+                    return Resource.Error("Error loading the news")
                 }
 
                 return Resource.Success(res.news)

@@ -12,8 +12,18 @@ class NewsRepositoryImpl @Inject constructor(
 ) : NewsRepository {
     override suspend fun getRecommendedNews(
         language: String,
-        category: String
+        categories: List<String>
     ): Flow<Response<CurrentsApiResponse>> {
+        var category = ""
+
+        categories.forEach {
+            category = if (category.isNotEmpty()) {
+                "$category,$it"
+            } else {
+                it
+            }
+        }
+
         val response = currentsApi.searchNewsByCategory(language, category)
 
         return flowOf(response)

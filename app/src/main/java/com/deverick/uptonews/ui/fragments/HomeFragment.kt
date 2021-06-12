@@ -58,7 +58,8 @@ class HomeFragment : Fragment() {
                     is Resource.Error -> {
                         hideLoading()
 
-                        Snackbar.make(view, "Error", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(view, resource.message ?: "Error loading news", Snackbar.LENGTH_SHORT)
+                            .show()
                     }
                 }
             }

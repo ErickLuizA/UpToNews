@@ -23,7 +23,7 @@ object NetworkModuleModule {
                 val defaultRequest = it.request()
 
                 val httpUrl = defaultRequest.url().newBuilder()
-                    .addQueryParameter("apikey", BuildConfig.CURRENTS_API_TOKEN)
+                    .addQueryParameter("apiKey", BuildConfig.CURRENTS_API_TOKEN)
                     .build()
 
                 val requestBuilder = defaultRequest.newBuilder().url(httpUrl)

@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface CurrentsApi {
-    @GET("/search")
+    @GET("/v1/search")
     suspend fun searchNewsByCategory(
         @Query("language")
         language: String,
@@ -13,7 +13,7 @@ interface CurrentsApi {
         category: String,
     ): Response<CurrentsApiResponse>
 
-    @GET("/latest-news")
+    @GET("/v1/latest-news")
     suspend fun getLatestNews(
         @Query("language")
         language: String,

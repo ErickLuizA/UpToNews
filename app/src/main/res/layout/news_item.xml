@@ -48,6 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
+        android:paddingVertical="5dp"
         android:text="@string/point"
         android:textColor="?colorOnPrimarySurface"
         app:layout_constraintStart_toEndOf="@id/news_author"
@@ -58,6 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
+        android:paddingVertical="5dp"
         android:textColor="?colorOnPrimarySurface"
         app:layout_constraintStart_toEndOf="@id/point"
         app:layout_constraintTop_toBottomOf="@+id/news_description" />
