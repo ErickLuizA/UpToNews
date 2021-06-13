@@ -13,6 +13,14 @@ interface CurrentsApi {
         category: String,
     ): Response<CurrentsApiResponse>
 
+    @GET("/v1/search")
+    suspend fun searchNewsByKeyword(
+        @Query("language")
+        language: String,
+        @Query("keywords")
+        keyword: String,
+    ): Response<CurrentsApiResponse>
+
     @GET("/v1/latest-news")
     suspend fun getLatestNews(
         @Query("language")

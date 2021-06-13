@@ -10,21 +10,10 @@ import javax.inject.Inject
 class NewsRepositoryImpl @Inject constructor(
     private val currentsApi: CurrentsApi,
 ) : NewsRepository {
-    override suspend fun getRecommendedNews(
+    override suspend fun getLatestNews(
         language: String,
-        categories: List<String>
     ): Flow<Response<CurrentsApiResponse>> {
-        var category = ""
-
-        categories.forEach {
-            category = if (category.isNotEmpty()) {
-                "$category,$it"
-            } else {
-                it
-            }
-        }
-
-        val response = currentsApi.searchNewsByCategory(language, category)
+        val response = currentsApi.getLatestNews(language)
 
         return flowOf(response)
     }

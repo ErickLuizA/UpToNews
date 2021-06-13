@@ -28,15 +28,15 @@ class NewsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getRecommended("en", listOf("general"))
+            getLatestNews("en")
         }
     }
 
     @InternalCoroutinesApi
-    suspend fun getRecommended(language: String, category: List<String>) {
+    suspend fun getLatestNews(language: String) {
         try {
-            newsRepository.getRecommendedNews(language, category).collect { response ->
-                val result = handleGetRecommended(response)
+            newsRepository.getLatestNews(language).collect { response ->
+                val result = handleGetLatestNews(response)
 
                 _news.value = result
             }
@@ -45,7 +45,7 @@ class NewsViewModel @Inject constructor(
         }
     }
 
-    private fun handleGetRecommended(response: Response<CurrentsApiResponse>): Resource<List<News>> {
+    private fun handleGetLatestNews(response: Response<CurrentsApiResponse>): Resource<List<News>> {
         if (response.isSuccessful) {
             response.body()?.let { res ->
                 if (res.status == "error") {

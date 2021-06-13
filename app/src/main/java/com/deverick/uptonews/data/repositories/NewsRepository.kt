@@ -5,8 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
 interface NewsRepository {
-    suspend fun getRecommendedNews(
+    suspend fun getLatestNews(
         language: String,
-        categories: List<String>
     ): Flow<Response<CurrentsApiResponse>>
 }
