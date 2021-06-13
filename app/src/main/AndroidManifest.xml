@@ -38,6 +38,7 @@
             android:exported="true" />
         <activity
             android:name=".AuthActivity"
+            android:theme="@style/Theme.UpToNews"
             android:exported="true" />
         <activity
             android:name=".SplashActivity"
