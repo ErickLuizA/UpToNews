@@ -1,6 +1,7 @@
 package com.deverick.uptonews.data.repositories
 
 import com.deverick.uptonews.data.api.CurrentsApi
+import com.deverick.uptonews.data.api.CurrentsApiAvailableResponse
 import com.deverick.uptonews.data.api.CurrentsApiResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -14,6 +15,12 @@ class NewsRepositoryImpl @Inject constructor(
         language: String,
     ): Flow<Response<CurrentsApiResponse>> {
         val response = currentsApi.getLatestNews(language)
+
+        return flowOf(response)
+    }
+
+    override suspend fun getAvailableCategories(): Flow<Response<CurrentsApiAvailableResponse>> {
+        val response = currentsApi.getAvailableCategories()
 
         return flowOf(response)
     }

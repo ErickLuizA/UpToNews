@@ -5,6 +5,12 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface CurrentsApi {
+    @GET("/v1/latest-news")
+    suspend fun getLatestNews(
+        @Query("language")
+        language: String,
+    ): Response<CurrentsApiResponse>
+
     @GET("/v1/search")
     suspend fun searchNewsByCategory(
         @Query("language")
@@ -21,9 +27,6 @@ interface CurrentsApi {
         keyword: String,
     ): Response<CurrentsApiResponse>
 
-    @GET("/v1/latest-news")
-    suspend fun getLatestNews(
-        @Query("language")
-        language: String,
-    ): Response<CurrentsApiResponse>
+    @GET("/v1/available/categories")
+    suspend fun getAvailableCategories(): Response<CurrentsApiAvailableResponse>
 }

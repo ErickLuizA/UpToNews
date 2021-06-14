@@ -24,9 +24,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?colorPrimaryVariant"
-        android:inputType="text"
-        android:focusable="true"
         android:clickable="true"
+        android:focusable="true"
+        android:inputType="text"
         android:queryHint="@string/type_topic"
         android:searchIcon="@drawable/ic_baseline_search_24"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,17 +41,23 @@
         android:text="@string/categories"
         android:textColor="?colorOnPrimary"
         android:textSize="20sp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_view" />
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chip_group"
+    <HorizontalScrollView
+        android:id="@+id/horizontal_scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
-        app:chipSpacing="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/categories_text" />
+        app:layout_constraintTop_toBottomOf="@id/categories_text">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipSpacing="10dp" />
+
+    </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_news_rv"
@@ -59,6 +65,16 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/chip_group" />
+        app:layout_constraintTop_toBottomOf="@id/horizontal_scroll" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/rv_loading_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_scroll" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
