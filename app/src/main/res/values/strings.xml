@@ -29,4 +29,8 @@
     <string name="type_topic">Type a topic you are interested</string>
     <string name="categories">Categories</string>
     <string name="history">History</string>
+    <string name="user_image">user image</string>
+    <string name="display_language">Display Language</string>
+    <string name="display_theme">Display Theme</string>
+    <string name="favorites">Favorites</string>
 </resources>
