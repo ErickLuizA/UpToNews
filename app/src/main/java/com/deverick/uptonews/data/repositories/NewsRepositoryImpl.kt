@@ -24,4 +24,22 @@ class NewsRepositoryImpl @Inject constructor(
 
         return flowOf(response)
     }
+
+    override suspend fun searchNewsByKeyword(
+        language: String,
+        keyword: String
+    ): Flow<Response<CurrentsApiResponse>> {
+        val response = currentsApi.searchNewsByKeyword(language, keyword)
+
+        return flowOf(response)
+    }
+
+    override suspend fun searchNewsByCategory(
+        language: String,
+        category: String
+    ): Flow<Response<CurrentsApiResponse>> {
+        val response = currentsApi.searchNewsByCategory(language, category)
+
+        return flowOf(response)
+    }
 }

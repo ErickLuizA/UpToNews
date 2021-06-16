@@ -1,15 +1,18 @@
 package com.deverick.uptonews.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.deverick.uptonews.databinding.FragmentSearchBinding
+import com.deverick.uptonews.ui.adapters.NewsAdapter
 import com.deverick.uptonews.utils.Resource
 import com.deverick.uptonews.viewmodels.SearchViewModel
 import com.google.android.material.chip.Chip
@@ -18,11 +21,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-const val TAG = "SearchFragment"
-
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
+    private lateinit var newsAdapter: NewsAdapter
+
     private val viewModel: SearchViewModel by viewModels()
 
     override fun onCreateView(
@@ -36,6 +39,8 @@ class SearchFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setUpRecyclerView()
+
         lifecycleScope.launch {
             viewModel.categories.collect { resource ->
                 when (resource) {
@@ -62,12 +67,45 @@ class SearchFragment : Fragment() {
 
                             chip.text = it
 
+                            chip.setOnClickListener {
+                                lifecycleScope.launch {
+                                    viewModel.searchNewsByCategory("en", chip.text.toString())
+                                }
+                            }
+
                             binding.chipGroup.addView(chip)
                         }
                     }
                 }
             }
         }
+
+        viewModel.searchedNews.observe(viewLifecycleOwner, { resource ->
+            when (resource) {
+                is Resource.Success -> {
+                    hideLoading()
+
+                    resource.data?.let { response ->
+                        newsAdapter.differ.submitList(response)
+                    }
+                }
+
+                is Resource.Loading -> {
+                    showLoading()
+                }
+
+                is Resource.Error -> {
+                    hideLoading()
+
+                    Snackbar.make(
+                        view,
+                        resource.message ?: "Error loading news",
+                        Snackbar.LENGTH_SHORT
+                    )
+                        .show()
+                }
+            }
+        })
 
         binding.searchView.setOnQueryTextListener(queryTextListener)
 
@@ -86,7 +124,13 @@ class SearchFragment : Fragment() {
 
     private val queryTextListener = object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String?): Boolean {
+            lifecycleScope.launch {
+                query?.let { keyword ->
+                    viewModel.searchNewsByKeyword("en", keyword)
+                }
+            }
 
+            hideKeyboard()
 
             return true
         }
@@ -95,4 +139,26 @@ class SearchFragment : Fragment() {
             return true
         }
     }
+
+    private fun showLoading() {
+        binding.rvLoadingIndicator.visibility = View.VISIBLE
+    }
+
+    private fun hideLoading() {
+        binding.rvLoadingIndicator.visibility = View.INVISIBLE
+    }
+
+    private fun setUpRecyclerView() {
+        newsAdapter = NewsAdapter()
+
+        newsAdapter.setHasStableIds(true)
+
+        binding.searchNewsRv.apply {
+            adapter = newsAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
+    }
+
+    fun hideKeyboard() =
+        ViewCompat.getWindowInsetsController(requireView())?.hide(WindowInsetsCompat.Type.ime())
 }

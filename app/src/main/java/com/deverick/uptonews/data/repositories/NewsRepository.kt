@@ -11,4 +11,14 @@ interface NewsRepository {
     ): Flow<Response<CurrentsApiResponse>>
 
     suspend fun getAvailableCategories(): Flow<Response<CurrentsApiAvailableResponse>>
+
+    suspend fun searchNewsByKeyword(
+        language: String,
+        keyword: String,
+    ): Flow<Response<CurrentsApiResponse>>
+
+    suspend fun searchNewsByCategory(
+        language: String,
+        category: String,
+    ): Flow<Response<CurrentsApiResponse>>
 }

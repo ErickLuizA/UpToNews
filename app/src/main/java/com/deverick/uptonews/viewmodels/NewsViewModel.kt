@@ -16,7 +16,6 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
 
-@InternalCoroutinesApi
 @HiltViewModel
 class NewsViewModel @Inject constructor(
     private val newsRepository: NewsRepository,
@@ -27,13 +26,12 @@ class NewsViewModel @Inject constructor(
     val news: StateFlow<Resource<List<News>>> = _news
 
     init {
-        viewModelScope.launch {
-            getLatestNews("en")
-        }
+        getLatestNews("en")
     }
 
-    @InternalCoroutinesApi
-    suspend fun getLatestNews(language: String) {
+    private fun getLatestNews(language: String) = viewModelScope.launch {
+        _news.value = Resource.Loading()
+
         try {
             newsRepository.getLatestNews(language).collect { response ->
                 val result = handleGetLatestNews(response)
