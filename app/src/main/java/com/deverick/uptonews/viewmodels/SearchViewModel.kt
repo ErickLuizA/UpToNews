@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.deverick.uptonews.R
 import com.deverick.uptonews.data.api.CurrentsApiAvailableResponse
 import com.deverick.uptonews.data.api.CurrentsApiResponse
 import com.deverick.uptonews.data.repositories.NewsRepository
@@ -47,7 +48,7 @@ class SearchViewModel @Inject constructor(
                 _categories.value = result
             }
         } catch (e: Exception) {
-            _categories.value = Resource.Error("A unexpected error occurred")
+            _categories.value = Resource.Error(getStringResource(R.string.unexpected_error))
         }
     }
 
@@ -64,7 +65,7 @@ class SearchViewModel @Inject constructor(
                 _searchedNews.value = result
             }
         } catch (e: Exception) {
-            _searchedNews.value = Resource.Error("A unexpected error occurred")
+            _searchedNews.value = Resource.Error(getStringResource(R.string.unexpected_error))
         }
     }
 
@@ -81,7 +82,7 @@ class SearchViewModel @Inject constructor(
                 _searchedNews.value = result
             }
         } catch (e: Exception) {
-            _searchedNews.value = Resource.Error("A unexpected error occurred")
+            _searchedNews.value = Resource.Error(getStringResource(R.string.unexpected_error))
         }
     }
 
@@ -89,27 +90,31 @@ class SearchViewModel @Inject constructor(
         if (response.isSuccessful) {
             response.body()?.let { res ->
                 if (res.status == "error") {
-                    return Resource.Error("Error loading the news")
+                    return Resource.Error(getStringResource(R.string.error_loading_news))
                 }
 
                 return Resource.Success(res.categories)
             }
         }
 
-        return Resource.Error("Error while loading available categories")
+        return Resource.Error(getStringResource(R.string.error_loading_categories))
     }
 
     private fun handleSearchNews(response: Response<CurrentsApiResponse>): Resource<List<News>> {
         if (response.isSuccessful) {
             response.body()?.let { res ->
                 if (res.status == "error") {
-                    return Resource.Error("Error loading the news")
+                    return Resource.Error(getStringResource(R.string.error_loading_news))
                 }
 
                 return Resource.Success(res.news)
             }
         }
 
-        return Resource.Error("Error while loading searched news")
+        return Resource.Error(getStringResource(R.string.error_loading_searched_news))
+    }
+
+    private fun getStringResource(id: Int): String {
+        return getApplication<Application>().getString(id)
     }
 }

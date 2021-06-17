@@ -1,6 +1,5 @@
 package com.deverick.uptonews
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.deverick.uptonews.databinding.ActivityMainBinding
@@ -10,7 +9,7 @@ import com.deverick.uptonews.ui.fragments.SettingsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

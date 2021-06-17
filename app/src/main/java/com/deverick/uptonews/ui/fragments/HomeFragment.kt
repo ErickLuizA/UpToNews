@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.deverick.uptonews.R
 import com.deverick.uptonews.databinding.FragmentHomeBinding
 import com.deverick.uptonews.ui.adapters.NewsAdapter
 import com.deverick.uptonews.utils.Resource
@@ -58,7 +59,7 @@ class HomeFragment : Fragment() {
                     is Resource.Error -> {
                         hideLoading()
 
-                        Snackbar.make(view, resource.message ?: "Error loading news", Snackbar.LENGTH_SHORT)
+                        Snackbar.make(view, getString(R.string.error_loading_news), Snackbar.LENGTH_SHORT)
                             .show()
                     }
                 }

@@ -3,17 +3,18 @@ package com.deverick.uptonews.viewmodels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.deverick.uptonews.R
 import com.deverick.uptonews.data.api.CurrentsApiResponse
 import com.deverick.uptonews.data.repositories.NewsRepository
 import com.deverick.uptonews.models.News
 import com.deverick.uptonews.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,7 +27,7 @@ class NewsViewModel @Inject constructor(
     val news: StateFlow<Resource<List<News>>> = _news
 
     init {
-        getLatestNews("en")
+        getLatestNews(Locale.getDefault().language)
     }
 
     private fun getLatestNews(language: String) = viewModelScope.launch {
@@ -39,7 +40,7 @@ class NewsViewModel @Inject constructor(
                 _news.value = result
             }
         } catch (e: Exception) {
-            _news.value = Resource.Error("A unexpected error happened")
+            _news.value = Resource.Error(getStringResource(R.string.unexpected_error))
         }
     }
 
@@ -47,7 +48,7 @@ class NewsViewModel @Inject constructor(
         if (response.isSuccessful) {
             response.body()?.let { res ->
                 if (res.status == "error") {
-                    return Resource.Error("Error loading the news")
+                    return Resource.Error(getStringResource(R.string.error_loading_news))
                 }
 
                 return Resource.Success(res.news)
@@ -55,5 +56,9 @@ class NewsViewModel @Inject constructor(
         }
 
         return Resource.Error(response.message())
+    }
+
+    private fun getStringResource(id: Int): String {
+        return getApplication<Application>().getString(id)
     }
 }

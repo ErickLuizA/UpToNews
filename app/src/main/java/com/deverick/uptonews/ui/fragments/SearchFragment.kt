@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.deverick.uptonews.R
 import com.deverick.uptonews.databinding.FragmentSearchBinding
 import com.deverick.uptonews.ui.adapters.NewsAdapter
 import com.deverick.uptonews.utils.Resource
@@ -20,11 +21,14 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.*
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
     private lateinit var newsAdapter: NewsAdapter
+
+    private lateinit var locale: Locale
 
     private val viewModel: SearchViewModel by viewModels()
 
@@ -34,6 +38,8 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSearchBinding.inflate(inflater)
+
+        locale = Locale.getDefault()
 
         return binding.root
     }
@@ -53,7 +59,7 @@ class SearchFragment : Fragment() {
 
                         Snackbar.make(
                             view,
-                            resource.message ?: "Error loading available categories",
+                            getString(R.string.error_loading_categories),
                             Snackbar.LENGTH_SHORT
                         )
                             .show()
@@ -69,7 +75,10 @@ class SearchFragment : Fragment() {
 
                             chip.setOnClickListener {
                                 lifecycleScope.launch {
-                                    viewModel.searchNewsByCategory("en", chip.text.toString())
+                                    viewModel.searchNewsByCategory(
+                                        locale.language,
+                                        chip.text.toString()
+                                    )
                                 }
                             }
 
@@ -99,7 +108,7 @@ class SearchFragment : Fragment() {
 
                     Snackbar.make(
                         view,
-                        resource.message ?: "Error loading news",
+                        getString(R.string.error_loading_news),
                         Snackbar.LENGTH_SHORT
                     )
                         .show()
@@ -126,7 +135,7 @@ class SearchFragment : Fragment() {
         override fun onQueryTextSubmit(query: String?): Boolean {
             lifecycleScope.launch {
                 query?.let { keyword ->
-                    viewModel.searchNewsByKeyword("en", keyword)
+                    viewModel.searchNewsByKeyword(locale.language, keyword)
                 }
             }
 
