@@ -30,7 +30,7 @@
     <string name="history">History</string>
     <string name="user_image">user image</string>
     <string name="display_language">Display Language</string>
-    <string name="display_theme">Dark Theme</string>
+    <string name="display_theme">Display Theme</string>
     <string name="favorites">Favorites</string>
     <string name="english">English</string>
     <string name="portuguese">Portuguese</string>
@@ -39,4 +39,7 @@
     <string name="error_loading_categories">Error while loading available categories</string>
     <string name="error_loading_searched_news">Error while loading searched news</string>
     <string name="unexpected_error">A unexpected error occurred</string>
+    <string name="system">System</string>
+    <string name="dark">Dark</string>
+    <string name="light">Light</string>
 </resources>

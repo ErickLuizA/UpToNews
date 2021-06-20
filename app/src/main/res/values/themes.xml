@@ -1,27 +1,27 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.UpToNews" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/black</item>
-        <item name="colorPrimaryVariant">@color/lightBlack</item>
-        <item name="colorOnPrimary">@color/grey</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/grey</item>
+        <item name="colorOnPrimary">@color/black</item>
         <item name="colorOnPrimarySurface">@color/dark_grey</item>
         <item name="colorSecondary">@color/green</item>
         <item name="colorOnError">@color/lightRed</item>
-        <item name="android:windowBackground">@color/black</item>
-        <item name="android:statusBarColor" tools:targetApi="l">@color/lightBlack</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/grey</item>
     </style>
 
     <style name="Theme.MainUpToNews" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/black</item>
-        <item name="colorPrimaryVariant">@color/lightBlack</item>
-        <item name="colorOnPrimary">@color/grey</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/grey</item>
+        <item name="colorOnPrimary">@color/black</item>
         <item name="colorOnPrimarySurface">@color/dark_grey</item>
         <item name="colorSecondary">@color/green</item>
         <item name="colorOnError">@color/lightRed</item>
-        <item name="android:windowBackground">@color/black</item>
-        <item name="android:statusBarColor" tools:targetApi="l">@color/lightBlack</item>
-        <item name="android:editTextColor">@color/grey</item>
-        <item name="android:textColorHint">@color/grey</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/grey</item>
+        <item name="android:editTextColor">@color/black</item>
+        <item name="android:textColorHint">@color/black</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">

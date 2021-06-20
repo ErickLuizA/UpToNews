@@ -76,7 +76,44 @@ class SettingsFragment : Fragment() {
             popupMenu.show()
         }
 
-        binding.displayTheme.setOnClickListener { }
+        binding.displayTheme.setOnClickListener {
+            val popupMenu = PopupMenu(this.activity, binding.displayTheme)
+
+            popupMenu.menuInflater.inflate(R.menu.theme_menu, popupMenu.menu)
+
+            popupMenu.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.system_theme -> {
+                        lifecycleScope.launch {
+                            UpToNewsApplication.setTheme("system")
+                        }
+                    }
+
+                    R.id.dark_theme -> {
+                        lifecycleScope.launch {
+                            UpToNewsApplication.setTheme("dark")
+                        }
+                    }
+
+                    R.id.light_theme -> {
+                        lifecycleScope.launch {
+                            UpToNewsApplication.setTheme("light")
+                        }
+                    }
+
+                    else -> {
+                        lifecycleScope.launch {
+                            UpToNewsApplication.setTheme("system")
+                        }
+                    }
+                }
+
+                true
+            }
+
+            popupMenu.show()
+        }
+
         binding.favorites.setOnClickListener { }
         binding.history.setOnClickListener { }
     }

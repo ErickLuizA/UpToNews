@@ -28,7 +28,7 @@
     <string name="history">Histórico</string>
     <string name="user_image">Imagem do usuário</string>
     <string name="display_language">Linguagem de Exibição</string>
-    <string name="display_theme">Tema Escuro</string>
+    <string name="display_theme">Tema</string>
     <string name="favorites">Favoritos</string>
     <string name="english">Inglês</string>
     <string name="portuguese">Português</string>
@@ -36,4 +36,8 @@
     <string name="error_loading_news">Erro ao carregar notícias</string>
     <string name="error_loading_categories">Erro ao carregar as categorias disponíveis</string>
     <string name="error_loading_searched_news">Erro ao carregar as notícias pesquisadas</string>
+    <string name="unexpected_error">Um erro inesperado ocorreu</string>
+    <string name="system">Sistema</string>
+    <string name="dark">Escuro</string>
+    <string name="light">Claro</string>
 </resources>

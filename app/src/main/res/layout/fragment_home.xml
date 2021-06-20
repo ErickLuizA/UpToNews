@@ -12,13 +12,13 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:background="?colorPrimary"
-        android:elevation="5dp"
-        app:contentInsetStart="0dp"
+        android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:logo="@mipmap/ic_launcher"
+        app:logo="@drawable/ic_logo"
         app:title="@string/good_morning"
+        app:titleMarginStart="20dp"
         app:titleTextColor="?colorOnPrimary" />
 
     <androidx.recyclerview.widget.RecyclerView
