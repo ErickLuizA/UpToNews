@@ -40,4 +40,5 @@
     <string name="system">Sistema</string>
     <string name="dark">Escuro</string>
     <string name="light">Claro</string>
+    <string name="favorite">Favorite Button</string>
 </resources>

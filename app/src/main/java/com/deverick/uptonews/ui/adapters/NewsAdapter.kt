@@ -75,7 +75,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
             newsDate.text = date
             Glide.with(holder.itemView).load(currentNews.image).into(newsImage)
 
-            setOnClickListener {
+            newsItemLayout.setOnClickListener {
                 onItemClickListener?.let {
                     it(currentNews)
                 }

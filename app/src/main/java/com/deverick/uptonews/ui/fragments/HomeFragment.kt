@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.deverick.uptonews.R
 import com.deverick.uptonews.databinding.FragmentHomeBinding
@@ -59,11 +60,21 @@ class HomeFragment : Fragment() {
                     is Resource.Error -> {
                         hideLoading()
 
-                        Snackbar.make(view, getString(R.string.error_loading_news), Snackbar.LENGTH_SHORT)
+                        Snackbar.make(
+                            view,
+                            getString(R.string.error_loading_news),
+                            Snackbar.LENGTH_SHORT
+                        )
                             .show()
                     }
                 }
             }
+        }
+
+        newsAdapter.setOnClickListener {
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToNewsDetailsFragment(it.url)
+            )
         }
     }
 

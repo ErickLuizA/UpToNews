@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.deverick.uptonews.R
 import com.deverick.uptonews.databinding.FragmentSearchBinding
@@ -115,6 +116,12 @@ class SearchFragment : Fragment() {
                 }
             }
         })
+
+        newsAdapter.setOnClickListener {
+            findNavController().navigate(
+                SearchFragmentDirections.actionSearchFragmentToNewsDetailsFragment(it.url)
+            )
+        }
 
         binding.searchView.setOnQueryTextListener(queryTextListener)
 
