@@ -6,18 +6,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.deverick.uptonews.data.repositories.FavoriteRepository
+import com.deverick.uptonews.data.repositories.HistoryRepository
 import com.deverick.uptonews.models.News
-import com.deverick.uptonews.utils.Resource
+import com.deverick.uptonews.utils.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-enum class FavoriteResult { Add, Remove, AddFail, RemoveFail }
-
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
     private val favoriteRepository: FavoriteRepository,
+    private val historyRepository: HistoryRepository,
     application: Application
 ) : AndroidViewModel(application) {
 
@@ -71,5 +71,9 @@ class DetailsViewModel @Inject constructor(
                 FavoriteResult.AddFail
             }
         }
+    }
+
+    fun addToHistory(userId: String, news: News) {
+        historyRepository.addHistoryItem(userId, news)
     }
 }

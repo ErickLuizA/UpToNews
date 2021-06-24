@@ -12,8 +12,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import com.deverick.uptonews.R
 import com.deverick.uptonews.databinding.FragmentNewsDetailsBinding
+import com.deverick.uptonews.utils.*
 import com.deverick.uptonews.viewmodels.DetailsViewModel
-import com.deverick.uptonews.viewmodels.FavoriteResult
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,6 +48,7 @@ class NewsDetailsFragment : Fragment() {
 
         if (user != null) {
             viewModel.getFavorites(user.uid, arguments.news)
+            viewModel.addToHistory(user.uid, arguments.news)
         }
 
         binding.webView.loadUrl(arguments.news.url!!)
