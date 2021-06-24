@@ -119,7 +119,7 @@ class SearchFragment : Fragment() {
 
         newsAdapter.setOnClickListener {
             findNavController().navigate(
-                SearchFragmentDirections.actionSearchFragmentToNewsDetailsFragment(it.url)
+                SearchFragmentDirections.actionSearchFragmentToNewsDetailsFragment(it)
             )
         }
 

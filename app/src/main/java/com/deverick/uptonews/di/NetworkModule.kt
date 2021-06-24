@@ -2,6 +2,7 @@ package com.deverick.uptonews.di
 
 import com.deverick.uptonews.BuildConfig
 import com.deverick.uptonews.data.api.CurrentsApi
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,5 +39,11 @@ object NetworkModuleModule {
             .build()
 
         return builder.create(CurrentsApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providesFirestore(): FirebaseFirestore {
+        return FirebaseFirestore.getInstance()
     }
 }

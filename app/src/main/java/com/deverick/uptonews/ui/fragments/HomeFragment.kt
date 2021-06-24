@@ -73,7 +73,7 @@ class HomeFragment : Fragment() {
 
         newsAdapter.setOnClickListener {
             findNavController().navigate(
-                HomeFragmentDirections.actionHomeFragmentToNewsDetailsFragment(it.url)
+                HomeFragmentDirections.actionHomeFragmentToNewsDetailsFragment(it)
             )
         }
     }

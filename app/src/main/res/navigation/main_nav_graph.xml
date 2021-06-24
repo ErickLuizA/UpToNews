@@ -36,8 +36,8 @@
         android:label="fragment_news_details"
         tools:layout="@layout/fragment_news_details" >
         <argument
-            android:name="url"
-            app:argType="string" />
+            android:name="news"
+            app:argType="com.deverick.uptonews.models.News" />
     </fragment>
 
 </navigation>

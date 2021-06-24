@@ -4,35 +4,72 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.deverick.uptonews.data.repositories.NewsRepository
+import androidx.lifecycle.viewModelScope
+import com.deverick.uptonews.data.repositories.FavoriteRepository
+import com.deverick.uptonews.models.News
+import com.deverick.uptonews.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 enum class FavoriteResult { Add, Remove, AddFail, RemoveFail }
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    private val newsRepository: NewsRepository,
+    private val favoriteRepository: FavoriteRepository,
     application: Application
 ) : AndroidViewModel(application) {
 
-    private var _isFavorite = MutableLiveData<Boolean>(false)
+    private var _isFavorite = MutableLiveData(false)
     val isFavorite: LiveData<Boolean>
         get() = _isFavorite
 
-    suspend fun toggleFavoriteNews(url: String): FavoriteResult {
-        if (_isFavorite.value == true) {
+    fun getFavorites(userId: String, news: News) = viewModelScope.launch {
+        favoriteRepository
+            .getFavorites(userId)
+            .collect { resource ->
+                when (resource) {
+                    is Resource.Success -> {
+                        val isContained = resource.data?.contains(news)
 
-            _isFavorite.value = true
+                        _isFavorite.postValue(isContained)
+                    }
 
-            return FavoriteResult.Add
-        } else {
-
-            _isFavorite.value = false
-
-            return FavoriteResult.Remove
-        }
+                    else -> {
+                        _isFavorite.postValue(false)
+                    }
+                }
+            }
     }
 
-    private suspend fun getFavorites() {}
+    fun toggleFavoriteNews(userId: String, news: News): FavoriteResult {
+        if (_isFavorite.value == true) {
+
+            val result = favoriteRepository.removeFavorite(userId, news)
+
+            return if (result) {
+                _isFavorite.value = false
+
+                FavoriteResult.Remove
+            } else {
+                _isFavorite.value = true
+
+                FavoriteResult.RemoveFail
+            }
+        } else {
+
+            val result = favoriteRepository.addFavorite(userId, news)
+
+            return if (result) {
+                _isFavorite.value = true
+
+                FavoriteResult.Add
+            } else {
+                _isFavorite.value = false
+
+                FavoriteResult.AddFail
+            }
+        }
+    }
 }

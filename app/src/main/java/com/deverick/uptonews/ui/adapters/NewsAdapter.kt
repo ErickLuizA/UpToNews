@@ -43,7 +43,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
         val currentNews = differ.currentList[position]
 
         val title =
-            if (currentNews.title.length > 70) "${
+            if (currentNews.title!!.length > 70) "${
                 currentNews.title.subSequence(
                     0,
                     70
@@ -51,7 +51,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
             }..." else currentNews.title
 
         val description =
-            if (currentNews.description.length > 200) "${
+            if (currentNews.description!!.length > 200) "${
                 currentNews.description.subSequence(
                     0,
                     200
@@ -59,14 +59,14 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
             }..." else currentNews.description
 
         val author =
-            if (currentNews.author.length > 30) "${
+            if (currentNews.author!!.length > 30) "${
                 currentNews.author.subSequence(
                     0,
                     30
                 )
             }..." else currentNews.author
 
-        val date = currentNews.published.subSequence(0, 10)
+        val date = currentNews.published!!.subSequence(0, 10)
 
         binding.apply {
             newsTitle.text = title

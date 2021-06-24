@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable-night/ic_baseline_favorite_24.xml" value="0.18518518518518517" />
         <entry key="app/src/main/res/drawable-night/ic_baseline_favorite_border_24.xml" value="0.18518518518518517" />
+        <entry key="app/src/main/res/drawable-night/ic_baseline_history_24.xml" value="0.175" />
         <entry key="app/src/main/res/drawable-night/ic_baseline_navigate_next_24.xml" value="0.18518518518518517" />
         <entry key="app/src/main/res/drawable-night/ic_logo.xml" value="0.18981481481481483" />
         <entry key="app/src/main/res/drawable-night/ic_splash.xml" value="0.19444444444444445" />

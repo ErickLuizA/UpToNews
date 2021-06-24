@@ -1,8 +1,11 @@
 package com.deverick.uptonews.di
 
 import com.deverick.uptonews.data.api.CurrentsApi
+import com.deverick.uptonews.data.repositories.FavoriteRepository
+import com.deverick.uptonews.data.repositories.FavoriteRepositoryImpl
 import com.deverick.uptonews.data.repositories.NewsRepository
 import com.deverick.uptonews.data.repositories.NewsRepositoryImpl
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,6 +23,16 @@ object RepositoryModule {
     ): NewsRepository {
         return NewsRepositoryImpl(
             currentsApi
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideFavoritesRepository(
+        firestore: FirebaseFirestore
+    ): FavoriteRepository {
+        return FavoriteRepositoryImpl(
+            firestore
         )
     }
 }
