@@ -29,7 +29,11 @@
         android:id="@+id/settingsFragment"
         android:name="com.deverick.uptonews.ui.fragments.SettingsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/newsDetailsFragment"
         android:name="com.deverick.uptonews.ui.fragments.NewsDetailsFragment"
@@ -38,6 +42,15 @@
         <argument
             android:name="news"
             app:argType="com.deverick.uptonews.models.News" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.deverick.uptonews.ui.fragments.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_newsDetailsFragment"
+            app:destination="@id/newsDetailsFragment" />
     </fragment>
 
 </navigation>
