@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface HistoryRepository {
     fun addHistoryItem(userId: String, news: News)
 
-    fun removeHistoryItem(userId: String, news: News): Boolean
+    fun removeHistoryItem(userId: String, news: News)
 
     suspend fun getHistory(userId: String): Flow<Resource<List<News>>>
 }

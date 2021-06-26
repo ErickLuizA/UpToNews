@@ -2,13 +2,10 @@ package com.deverick.uptonews.data.repositories
 
 import com.deverick.uptonews.models.News
 import com.deverick.uptonews.utils.*
-import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.tasks.await
+import com.google.firebase.firestore.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.*
 
 class HistoryRepositoryImpl(
     private val firestore: FirebaseFirestore,
@@ -25,37 +22,43 @@ class HistoryRepositoryImpl(
         }
     }
 
-    override fun removeHistoryItem(userId: String, news: News): Boolean {
+    override fun removeHistoryItem(userId: String, news: News) {
         val collection = firestore
             .collection(USERS_COLLECTION)
             .document(userId)
             .collection(HISTORY_COLLECTION)
 
-        return try {
+        try {
             collection.document(news.id!!).delete()
-
-            true
         } catch (e: Exception) {
-            false
         }
     }
 
-    override suspend fun getHistory(userId: String): Flow<Resource<List<News>>> = flow {
-        emit(Resource.Loading())
-
+    @ExperimentalCoroutinesApi
+    override suspend fun getHistory(userId: String) = callbackFlow<Resource<List<News>>> {
         val collection = firestore
             .collection(USERS_COLLECTION)
             .document(userId)
             .collection(HISTORY_COLLECTION)
 
-        val snapshot = collection.get().await()
+        send(Resource.Loading())
 
-        val news = snapshot.documents.map {
-            it.toObject(News::class.java)!!
+        val listener = collection.addSnapshotListener { value, error ->
+            error?.let {
+                trySend(Resource.Error(it.message.toString()))
+            }
+
+            value?.let { snapshot ->
+                val news = snapshot.documents.map {
+                    it.toObject(News::class.java)!!
+                }
+
+                trySend(Resource.Success(news))
+            }
         }
 
-        emit(Resource.Success(news))
-    }.catch {
-        emit(Resource.Error(it.message.toString()))
-    }.flowOn(Dispatchers.IO)
+        awaitClose {
+            listener.remove()
+        }
+    }
 }

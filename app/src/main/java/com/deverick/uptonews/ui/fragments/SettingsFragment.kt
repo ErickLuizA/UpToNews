@@ -119,6 +119,8 @@ class SettingsFragment : Fragment() {
             findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToFavoritesFragment())
         }
 
-        binding.history.setOnClickListener { }
+        binding.history.setOnClickListener {
+            findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToHistoryFragment())
+        }
     }
 }
