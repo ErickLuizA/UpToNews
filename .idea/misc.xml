@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-night/ic_baseline_exit_to_app_24.xml" value="0.20185185185185187" />
         <entry key="app/src/main/res/drawable-night/ic_baseline_favorite_24.xml" value="0.18518518518518517" />
         <entry key="app/src/main/res/drawable-night/ic_baseline_favorite_border_24.xml" value="0.18518518518518517" />
         <entry key="app/src/main/res/drawable-night/ic_baseline_history_24.xml" value="0.175" />
@@ -12,6 +13,7 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1175925925925926" />
         <entry key="app/src/main/res/drawable/avatar_border_radius.xml" value="0.31927083333333334" />
         <entry key="app/src/main/res/drawable/ic_baseline_brightness_6_24.xml" value="0.19444444444444445" />
+        <entry key="app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.20185185185185187" />
         <entry key="app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.18518518518518517" />
         <entry key="app/src/main/res/drawable/ic_baseline_history_24.xml" value="0.19444444444444445" />
         <entry key="app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.18888888888888888" />
@@ -38,6 +40,7 @@
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/menu/display_language_menu.xml" value="0.11666666666666667" />
         <entry key="app/src/main/res/menu/search_fragment_menu.xml" value="0.14444444444444443" />
+        <entry key="app/src/main/res/menu/settings_fragment_menu.xml" value="0.1824074074074074" />
         <entry key="app/src/main/res/menu/theme_menu.xml" value="0.18958333333333333" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1175925925925926" />
       </map>

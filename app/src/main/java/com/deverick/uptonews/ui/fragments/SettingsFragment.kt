@@ -1,5 +1,6 @@
 package com.deverick.uptonews.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.deverick.uptonews.AuthActivity
 import com.deverick.uptonews.R
 import com.deverick.uptonews.UpToNewsApplication
 import com.deverick.uptonews.databinding.FragmentSettingsBinding
@@ -36,6 +38,20 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val user = auth.currentUser
+
+        binding.toolbar.setOnMenuItemClickListener { menuItem ->
+            if (menuItem.itemId == R.id.exit_app) {
+                auth.signOut()
+
+                startActivity(Intent(requireContext(), AuthActivity::class.java))
+
+                activity?.finish()
+
+                return@setOnMenuItemClickListener true
+            }
+
+            false
+        }
 
         Glide
             .with(requireContext())
