@@ -30,8 +30,10 @@ class NewsViewModel @Inject constructor(
         getLatestNews(Locale.getDefault().language)
     }
 
-    private fun getLatestNews(language: String) = viewModelScope.launch {
-        _news.value = Resource.Loading()
+    fun getLatestNews(language: String, isRefreshing: Boolean = false) = viewModelScope.launch {
+        if (!isRefreshing) {
+            _news.value = Resource.Loading()
+        }
 
         try {
             newsRepository.getLatestNews(language).collect { response ->

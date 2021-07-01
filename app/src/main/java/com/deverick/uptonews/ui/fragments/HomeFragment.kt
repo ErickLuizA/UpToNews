@@ -19,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.*
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -76,6 +77,12 @@ class HomeFragment : Fragment() {
                 HomeFragmentDirections.actionHomeFragmentToNewsDetailsFragment(it)
             )
         }
+
+        binding.swipeToRefresh.setOnRefreshListener {
+            viewModel.getLatestNews(Locale.getDefault().language, true).invokeOnCompletion {
+                binding.swipeToRefresh.isRefreshing = false
+            }
+        }
     }
 
     private fun showLoading() {
@@ -88,6 +95,8 @@ class HomeFragment : Fragment() {
 
     private fun setUpRecyclerView() {
         newsAdapter = NewsAdapter()
+
+        newsAdapter.setHasStableIds(true)
 
         binding.newsRv.apply {
             adapter = newsAdapter
