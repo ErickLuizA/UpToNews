@@ -130,6 +130,8 @@ class HistoryFragment : Fragment() {
     private fun setUpRecyclerView() {
         newsAdapter = NewsAdapter()
 
+        newsAdapter.setHasStableIds(true)
+
         binding.historyNewsRv.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(activity)

@@ -99,6 +99,8 @@ class FavoritesFragment : Fragment() {
     private fun setUpRecyclerView() {
         newsAdapter = NewsAdapter()
 
+        newsAdapter.setHasStableIds(true)
+
         binding.favoriteNewsRv.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(activity)

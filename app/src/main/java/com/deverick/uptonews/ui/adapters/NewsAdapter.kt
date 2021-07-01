@@ -84,7 +84,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     }
 
     override fun getItemId(position: Int): Long {
-        return position.toLong()
+        return differ.currentList[position].id!!.toLong()
     }
 
     override fun getItemViewType(position: Int): Int {
