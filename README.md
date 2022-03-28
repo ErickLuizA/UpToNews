@@ -1,7 +1,7 @@
-<h1 align="center"> UptoNews </h1>
+<h1 align="center"> kotlin-news-app </h1>
 
 <p align="center">
-  <a href="https://github.com/ErickLuizA/UptoNews/graphs/commit-activity" alt="Maintenance">
+  <a href="https://github.com/ErickLuizA/kotlin-news-app/graphs/commit-activity" alt="Maintenance">
     <img src="https://img.shields.io/badge/Maintained%3F-yes-1EAE72.svg" />
   </a>
 
@@ -11,12 +11,12 @@
 
 <br/>
 
-<img alt="GitHub language count" src="https://img.shields.io/github/languages/count/ErickLuizA/UptoNews?color=blue">
+<img alt="GitHub language count" src="https://img.shields.io/github/languages/count/ErickLuizA/kotlin-news-app?color=blue">
 
-<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/ErickLuizA/UptoNews">
+<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/ErickLuizA/kotlin-news-app">
 
-<a href="https://github.com/ErickLuizA/UptoNews/stargazers">
-  <img alt="GitHub stars" src="https://img.shields.io/github/stars/ErickLuizA/UptoNews?style=social">
+<a href="https://github.com/ErickLuizA/kotlin-news-app/stargazers">
+  <img alt="GitHub stars" src="https://img.shields.io/github/stars/ErickLuizA/kotlin-news-app?style=social">
 </a>
 
 <p align="center">
@@ -31,7 +31,7 @@
 
 ## :clipboard: Description
 
-UptoNews is a news app built with Kotlin 
+kotlin-news-app is a news app built with Kotlin
 
 ## :building_construction: Technologies
 
@@ -44,14 +44,14 @@ UptoNews is a news app built with Kotlin
 
 ## :art: Design
 
-You can view the app design in [this link](https://www.figma.com/file/cswH29bWAVZjv3HRDB0jrk/UptoNews?node-id=0%3A1)
+You can view the app design in [this link](https://www.figma.com/file/cswH29bWAVZjv3HRDB0jrk/kotlin-news-app?node-id=0%3A1)
 
 ## :rocket: Getting Started
 
 ## 1. Download the repository
 
 ```shell
- $ git clone https://github.com/ErickLuizA/UptoNews.git
+ $ git clone https://github.com/ErickLuizA/kotlin-news-app.git
 ```
 
 ## 2. Execution
@@ -63,19 +63,18 @@ You can view the app design in [this link](https://www.figma.com/file/cswH29bWAV
 ## :framed_picture: Screenshots
 
 <div>
-  <img alt="UptoNews screen" src=".github/Home.png"  width="200"/>
-	<img alt="UptoNews screen" src=".github/Details.png"  width="200"/>
-  <img alt="UptoNews screen" src=".github/Search.png"  width="200"/>
-  <img alt="UptoNews screen" src=".github/Searched.png"  width="200"/>
-  <img alt="UptoNews screen" src=".github/Searched_search_bar.png"  width="200"/>
-  <img alt="UptoNews screen" src=".github/Settings.png"  width="200"/>
-  <img alt="UptoNews screen" src=".github/Settings_Light.png"  width="200"/>
-  <img alt="UptoNews screen" src=".github/Favorites.png"  width="200"/>
-  <img alt="UptoNews screen" src=".github/History.png"  width="200"/>
-  <img alt="UptoNews screen" src=".github/History_deleting.png"  width="200"/>
-	<img alt="UptoNews screen" src=".github/Join.png"  width="200"/>  <img alt="UptoNews screen" src=".github/Signup.png"  width="200"/>
+  <img alt="kotlin-news-app screen" src=".github/Home.png"  width="200"/>
+	<img alt="kotlin-news-app screen" src=".github/Details.png"  width="200"/>
+  <img alt="kotlin-news-app screen" src=".github/Search.png"  width="200"/>
+  <img alt="kotlin-news-app screen" src=".github/Searched.png"  width="200"/>
+  <img alt="kotlin-news-app screen" src=".github/Searched_search_bar.png"  width="200"/>
+  <img alt="kotlin-news-app screen" src=".github/Settings.png"  width="200"/>
+  <img alt="kotlin-news-app screen" src=".github/Settings_Light.png"  width="200"/>
+  <img alt="kotlin-news-app screen" src=".github/Favorites.png"  width="200"/>
+  <img alt="kotlin-news-app screen" src=".github/History.png"  width="200"/>
+  <img alt="kotlin-news-app screen" src=".github/History_deleting.png"  width="200"/>
+	<img alt="kotlin-news-app screen" src=".github/Join.png"  width="200"/>  <img alt="kotlin-news-app screen" src=".github/Signup.png"  width="200"/>
 </div>
-
 
 ## :memo: License
 
